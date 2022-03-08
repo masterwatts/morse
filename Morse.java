@@ -33,6 +33,19 @@ public class Morse {
         put("y", "-.--");
         put("z", "--..");
         put(" ", "/");
+        put("?", "..--..");
+        put(".", ".-.-.-");
+        put(",", "--..--");
+        put("0", "-----");
+        put("9", "----.");
+        put("8", "---..");
+        put("7", "--...");
+        put("6", "-....");
+        put("5", ".....");
+        put("4", "....-");
+        put("3", "...--");
+        put("2", "..---");
+        put("1", ".----");
     }};
 
     public static String toMorse(String str) {
@@ -44,7 +57,10 @@ public class Morse {
             String c = String.valueOf(characters[i]);
 
             if (alphabet.containsKey(c))
-                result.append(alphabet.get(c) + " ");
+                result.append(alphabet.get(c));
+
+            if (i != characters.length - 1)
+                result.append(" ");
         }
 
         return String.valueOf(result);
@@ -54,11 +70,10 @@ public class Morse {
         StringBuilder result = new StringBuilder();
         String[] sequences = morse.split(" ");
 
-        for (int i = 0; i < sequences.length; i++) {
-            String str = sequences[i];
-
-            if (alphabet.containsValue(str))
+        for (String str : sequences) {
+            if (alphabet.containsValue(str)) {
                 result.append(alphabet.keySet().stream().filter(s -> alphabet.get(s).equals(str)).collect(Collectors.toList()).stream().findFirst().get());
+            }
         }
 
         return String.valueOf(result);
